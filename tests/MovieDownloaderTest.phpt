@@ -9,27 +9,25 @@ require __DIR__ . '/../vendor/autoload.php';
 
 
 $personRepository = Mockery::mock(PersonsRepository::class);
-$personRepository->shouldReceive('getById')->andReturnUsing(function($id) {
-	if ($id === 49181) {
-		$person = new Person();
-		$person->id = 49181;
-		$person->name = 'Brian Kirk';
-		$person->url = 'http://www.csfd.cz/tvurce/49181';
-		$person->isPersisted = TRUE;
-		return $person;
+$personRepository->shouldReceive('getById')->with(49181)->once()->andReturnUsing(function($id) {
+	$person = new Person();
+	$person->id = 49181;
+	$person->name = 'Brian Kirk';
+	$person->url = 'http://www.csfd.cz/tvurce/49181';
+	$person->isPersisted = TRUE;
 
-	} elseif ($id === 4651) {
-		$person = new Person();
-		$person->id = 4651;
-		$person->name = 'Daniel Minahan';
-		$person->url = 'http://www.csfd.cz/tvurce/4651';
-		$person->isPersisted = TRUE;
-		return $person;
-
-	} else {
-		return NULL;
-	}
+	return $person;
 });
+$personRepository->shouldReceive('getById')->with(4651)->once()->andReturnUsing(function($id) {
+	$person = new Person();
+	$person->id = 4651;
+	$person->name = 'Daniel Minahan';
+	$person->url = 'http://www.csfd.cz/tvurce/4651';
+	$person->isPersisted = TRUE;
+
+	return $person;
+});
+$personRepository->shouldReceive('getById')->andReturnNull();
 
 
 $movieDownloader = new MovieDownloader($personRepository);
