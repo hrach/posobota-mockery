@@ -43,5 +43,11 @@ Assert::same(3, count($movie->genres));
 Assert::same('Dobrodružný', $movie->genres[2]->name);
 
 Assert::same(6, count($movie->authorGroups));
+
+Assert::true($movie->authorGroups[0]->persons[0]->isPersisted);
+Assert::false($movie->authorGroups[0]->persons[3]->isPersisted);
+
 // ...
 
+
+Mockery::close();
