@@ -38,7 +38,7 @@ class MovieDownloader
 	}
 
 
-	private function downloadJson($url)
+	protected function downloadJson($url)
 	{
 		$sender = new CurlSender();
 		$request = new Request($url);
